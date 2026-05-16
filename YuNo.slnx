@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="YuNo/YuNo.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
+</Solution>
