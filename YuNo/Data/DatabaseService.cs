@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 
-namespace YuNo.Data
+namespace YuNo
 {
-    internal class DatabaseService
+    public class DatabaseService
     {
         private readonly string _connectionString;
 
-        private readonly SqliteConnection _connection;
+        //private readonly SqliteConnection _connection;
 
         public DatabaseService()
         {
@@ -19,7 +19,7 @@ namespace YuNo.Data
                 FileSystem.AppDataDirectory,
                 "yuno.db");
 
-            _connection = new SqliteConnection(dbPath);
+           //_connection = new SqliteConnection(dbPath);
 
             _connectionString = $"Data Source={dbPath}";
         }

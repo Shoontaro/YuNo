@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YuNo.Models
 {
-    internal class NoEntry
+    public class NoEntry
     {
         public int Id { get; set; }
 

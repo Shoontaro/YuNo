@@ -1,5 +1,39 @@
-﻿<h3>ProgressCard</h3>
+﻿@using MudBlazor
+@using YuNo.Models
+@inject StatisticsService StatisticsService
+
+<MudPaper Class="pa-5 rounded-xl mt-2">
+
+    @* <MudText Typo="Typo.h5">
+        Прогресс
+    </MudText> *@
+
+    <MudText Typo="Typo.h5" Class="mb-3 mt-2">
+        Прогресс: @_stats.TotalNoCount / @_stats.Goal НЕТ
+    </MudText>
+@*     <MudText Class="mt-2 progress-number">
+        @_stats.TotalNoCount / @_stats.Goal НЕТ
+    </MudText> *@
+
+@*     <MudProgressLinear Value="12.7"
+                       Rounded="true"
+                       Color="Color.Primary"
+                       Striped="true"
+                       Style="height:14px;" />
+ *@
+    <MudProgressLinear Value="@_stats.ProgressPercent"
+                       Rounded="true"
+                       Color="Color.Primary"
+                       Striped="true"
+                       Style="height:14px;" />
+
+</MudPaper>
 
 @code {
+    private Stat _stats = new();
 
+    protected override async Task OnInitializedAsync()
+    {
+        _stats = await StatisticsService.GetStatAsync();
+    }
 }

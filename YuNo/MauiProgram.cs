@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using YuNo.Data;
+using MudBlazor.Services;
+
 
 namespace YuNo
 {
@@ -24,6 +25,8 @@ namespace YuNo
 
             builder.Services.AddSingleton<DatabaseService>();
             builder.Services.AddScoped<DiaryRepository>();
+            builder.Services.AddScoped<StatisticsService>();
+            builder.Services.AddMudServices();
 
             var app = builder.Build();
 
