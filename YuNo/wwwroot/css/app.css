@@ -3,6 +3,33 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.fab-button {
+    position: fixed;
+    right: 24px!important;
+    bottom: 90px;
+    width: 68px;
+    height: 68px;
+    border-radius: 999px;
+    box-shadow: 0 12px 30px rgba(124,92,255,.35);
+    z-index: 9999;
+}
+
+.premium-fab {
+    position: fixed;
+    right: 24px;
+    bottom: 92px;
+    width: 72px !important;
+    height: 72px !important;
+    border-radius: 999px !important;
+    background: linear-gradient( 135deg, #8A6EFF, #6C4DFF ) !important;
+    box-shadow: 0 12px 40px rgba(124,92,255,.45), 0 0 30px rgba(124,92,255,.25);
+    transition: transform .25s ease;
+}
+
+    .premium-fab:hover {
+        transform: scale(1.08);
+    }
+
 a, .btn-link {
     color: #006bb7;
 }
@@ -70,6 +97,8 @@ h1:focus {
 .status-bar-safe-area {
     display: none;
 }
+
+
 
 @supports (-webkit-touch-callout: none) {
     .status-bar-safe-area {

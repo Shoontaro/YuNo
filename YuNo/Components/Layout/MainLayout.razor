@@ -1,5 +1,6 @@
 ﻿@using MudBlazor
 @inherits LayoutComponentBase
+@inject NavigationManager Navigation
 
 <div class="page">
     <div class="sidebar">
@@ -7,13 +8,59 @@
     </div>
     <MudThemeProvider />
     <main>
+
+     <article class="content px-4">
+       @Body
+     </article> 
+
+        <MudFab StartIcon="@Icons.Material.Filled.Add"
+                Class="premium-fab"
+                Color="Color.Primary"
+                OnClick="GoToAddEntry" 
+                Style="
+        position: fixed;
+        bottom: 90px;
+        right: 24px;
+        left: auto;
+        z-index: 9999;
+        " />
+
+       @*  <MudFab Icon="@Icons.Material.Filled.Add"
+                Color="Color.Primary"
+                Class="fab-button"
+                OnClick="GoToAddEntry" />
+
+        <MudFab Icon="@Icons.Material.Filled.Add"
+                Color="Color.Primary"
+                Size="Size.Large"
+                Class="premium-fab"
+                OnClick="GoToAddEntry" /> *@
+
        @*  <div class="top-row px-4">
             <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
         </div> *@
 
-        <article class="content px-4">
+      @*   <article class="content px-4">
 
             @Body
-        </article>
+        </article> *@
     </main>
+   @*  <MudFab Icon="@Icons.Material.Filled.Add"
+            Color="Color.Primary"
+            Style="
+    position: fixed;
+    bottom: 90px;
+    right: 24px;
+    left: auto;
+    z-index: 9999;
+    " /> *@
 </div>
+
+
+
+@code {
+    private void GoToAddEntry()
+    {
+        Navigation.NavigateTo("/add");
+    }
+}
