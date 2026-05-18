@@ -1,7 +1,65 @@
-﻿@page "/add"
+﻿  @page "/add"
+@using MudBlazor
+@inject DiaryRepository Repository
+@inject NavigationManager Navigation
 
-<h3>Добавить</h3>
+<MudContainer MaxWidth="MaxWidth.Small" Class="mt-6">
+   
+     <MudPaper Class="add-card pa-6">
+    <MudText Typo="Typo.h5" Class="mb-4">
+        ➕ Новая запись "Нет"
+    </MudText>
+
+    <!-- TITLE -->
+    <MudTextField @bind-Value="_title"
+                  Label="Что произошло?"
+                  Variant="Variant.Outlined"
+                  FullWidth="true"
+                  Class="mb-4" />
+
+    <!-- DESCRIPTION -->
+    <MudTextField @bind-Value="_description"
+                  Label="Описание"
+                  Lines="3"
+                  Variant="Variant.Outlined"
+                  FullWidth="true"
+                  Class="mb-4" />
+
+     @*    <MudChipSet T="string" @bind-SelectedChip="_category">
+            <MudChip  T="string" Text="Работа"  />
+            <MudChip  T="string" Text="Продажи" />
+            <MudChip  T="string" Text="Знакомства" />
+            <MudChip  T="string" Text="Спорт"  />
+            <MudChip  T="string" Text="Другое"  />
+        </MudChipSet> *@
+
+    <!-- SAVE BUTTON -->
+    <MudButton OnClick="Save"
+               Variant="Variant.Filled"
+               Color="Color.Primary"
+               FullWidth="true"
+               Class="mt-6 save-btn">
+        Сохранить
+    </MudButton>
+    </MudPaper>
+</MudContainer>
 
 @code {
+    private string _title = "";
+    private string _description = "";
+    private string? _category;
 
+    private async Task Save()
+    {
+        var entry = new NoEntry
+        {
+            Title = _title,
+            Description = _description,
+            CreatedAt = DateTime.Now
+        };
+
+        await Repository.AddAsync(entry);
+
+        Navigation.NavigateTo("/");
+    }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YuNo.Models
+namespace YuNo
 {
     public class NoEntry
     {
@@ -13,6 +13,7 @@ namespace YuNo.Models
         public string Title { get; set; } = "";
 
         public string Description { get; set; } = "";
+        //public string Category { get; set; } = "";
         public DateTime CreatedAt { get; set; }
     }
 }
