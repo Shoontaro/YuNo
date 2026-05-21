@@ -1,0 +1,56 @@
+﻿@page "/history"
+@using MudBlazor
+
+@inject DiaryRepository Repository
+
+<h3>История</h3>
+
+<MudStack Spacing="2" >
+    @if (_entries.Count == 0)
+    {
+        <MudPaper Class="home-card pa-5 rounded-xl">
+            <MudText Typo="Typo.h6">
+                Пусто
+            </MudText>
+        </MudPaper>
+    }
+    else
+    {
+        foreach (NoEntry entry in _entries)
+        {
+            <MudPaper Class="home-card pa-5 rounded-xl">
+            <MudStack Row="true" Justify="Justify.SpaceBetween" AlignItems="AlignItems.Stretch">
+                <div>
+                       @*  <MudText Typo="Typo.caption" Color="Color.Primary" Class="ml-3">
+                    @entry.Title
+                </MudText> *@
+                  
+                <MudText Typo="Typo.h6" >
+                            <b>@entry.Title</b>
+                </MudText>
+               @*  <MudText Typo="Typo.h6">
+                    @entry.CreatedAt
+                </MudText> *@
+
+                @if (!string.IsNullOrWhiteSpace(entry.Description))
+                {
+                    <MudText Typo="Typo.h6">
+                        @entry.Description
+                    </MudText>
+                }
+                </div>
+                </MudStack>
+            </MudPaper>
+        }
+    }
+    </MudStack>
+
+@code {
+
+    private List<NoEntry> _entries = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _entries = await Repository.GetAllAsync();   
+    }
+}

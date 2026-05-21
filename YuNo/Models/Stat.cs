@@ -9,7 +9,7 @@ namespace YuNo.Models
     public class Stat
     {
         public int TotalNoCount { get; set; }
-        public int Goal { get; set; } = 1000;
+        public int Goal { get; set; } = 100;
 
         public double ProgressPercent =>
         Goal == 0

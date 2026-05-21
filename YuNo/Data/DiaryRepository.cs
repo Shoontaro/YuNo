@@ -90,7 +90,7 @@ namespace YuNo
         (
             @Title,
             @Description,
-            @CreatedAt,
+            @CreatedAt
         )
         """;
 
