@@ -35,6 +35,7 @@ namespace YuNo
                     Defaults.Classes.Position.BottomCenter;
             });
             builder.Services.AddSingleton<ThemeService>();
+            builder.Services.AddSingleton<SettingsService>();
 
 
             var app = builder.Build();

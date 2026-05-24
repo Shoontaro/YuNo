@@ -1,5 +1,93 @@
-﻿<h3>Settings</h3>
+﻿@page "/settings"
+@using MudBlazor
+
+@inject ThemeService ThemeService
+@inject SettingsService SettingsService
+@inject ISnackbar Snackbar
+
+<MudContainer MaxWidth="MaxWidth.Small"
+              Class="mt-4">
+
+    <MudText Typo="Typo.h4"
+             Class="mb-4">
+        Настройки
+    </MudText>
+
+      <!-- APPEARANCE -->
+    <MudPaper Class="settings-card pa-4 mb-4">
+
+        <MudText Typo="Typo.h6"
+                 Class="mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-palette" viewBox="0 0 16 16">
+                <path d="M8 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m4 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M5.5 7a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m.5 6a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                <path d="M16 8c0 3.15-1.866 2.585-3.567 2.07C11.42 9.763 10.465 9.473 10 10c-.603.683-.475 1.819-.351 2.92C9.826 14.495 9.996 16 8 16a8 8 0 1 1 8-8m-8 7c.611 0 .654-.171.655-.176.078-.146.124-.464.07-1.119-.014-.168-.037-.37-.061-.591-.052-.464-.112-1.005-.118-1.462-.01-.707.083-1.61.704-2.314.369-.417.845-.578 1.272-.618.404-.038.812.026 1.16.104.343.077.702.186 1.025.284l.028.008c.346.105.658.199.953.266.653.148.904.083.991.024C14.717 9.38 15 9.161 15 8a7 7 0 1 0-7 7" />
+            </svg> Внешний вид
+        </MudText>
+
+        <MudSwitch T="bool"
+                   Label="Тёмная тема"
+                   @bind-Value="IsDark"
+                   Color="Color.Primary"/>
+    </MudPaper>
+
+    <!-- GOAL -->
+    <MudPaper Class="settings-card pa-4 mb-4">
+
+        <MudText Typo="Typo.h6"
+                 Class="mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award-fill" viewBox="0 0 16 16">
+                <path d="m8 0 1.669.864 1.858.282.842 1.68 1.337 1.32L13.4 6l.306 1.854-1.337 1.32-.842 1.68-1.858.282L8 12l-1.669-.864-1.858-.282-.842-1.68-1.337-1.32L2.6 6l-.306-1.854 1.337-1.32.842-1.68L6.331.864z" />
+                <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1z" />
+            </svg> Цель
+        </MudText>
+
+        <MudNumericField T="int"
+                         Label="Количество отказов"
+                         Variant="Variant.Outlined"
+                         @bind-Value="_goal" />
+
+        <MudButton Variant="Variant.Filled"
+                   Color="Color.Primary"
+                   Class="mt-3"
+                   OnClick="SaveGoal"> 
+
+            Сохранить
+
+        </MudButton>
+
+    </MudPaper>
+
+</MudContainer>
 
 @code {
+    private bool IsDark
+    {
+        get => ThemeService.IsDarkMode;
+        set
+        {
+            ThemeService.SetTheme(value);
+        }
+    }
+    private int _goal;
 
+    protected override void OnInitialized()
+    {
+       
+        _goal =
+            SettingsService.GetGoal();
+    }
+
+    private void OnThemeChanged(bool value)
+    {
+        ThemeService.SetTheme(value);
+    }
+
+    private void SaveGoal()
+    {
+        SettingsService.SetGoal(_goal);
+
+        Snackbar.Add(
+            "Цель сохранена",
+            Severity.Success);
+    }
 }
