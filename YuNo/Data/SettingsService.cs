@@ -6,20 +6,36 @@ using System.Threading.Tasks;
 
 namespace YuNo
 {
-    internal class SettingsService
+    public class SettingsService
     {
         private const string GoalKey = "goal";
 
-        public int GetGoal()
+        public event Action? SettingsChanged;
+
+        private int _goal;
+
+        public int Goal
         {
-            return Preferences.Default
-                .Get(GoalKey, 1000);
+            get => _goal;
+            private set => _goal = value;
         }
 
-        public void SetGoal(int value)
+        public SettingsService()
         {
-            Preferences.Default
-                .Set(GoalKey, value);
+            _goal =
+                Preferences.Default
+                    .Get(GoalKey, 100);
+        }
+
+        public void SetGoal(int goal)
+        {
+            Goal = goal;
+
+            Preferences.Default.Set(
+                GoalKey,
+                goal);
+
+            SettingsChanged?.Invoke();
         }
     }
 }

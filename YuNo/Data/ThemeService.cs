@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace YuNo
 {
-    internal class ThemeService
+    public class ThemeService
     {
         private const string ThemeKey = "theme_mode";
         public event Action? ThemeChanged; //делегат

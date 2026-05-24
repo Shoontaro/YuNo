@@ -1,6 +1,6 @@
 ﻿@using MudBlazor
-@using YuNo.Models
 @inject StatisticsService StatisticsService
+@inject SettingsService Settings
 
 <MudPaper Class="pa-5 rounded-xl mt-2">
 
@@ -40,6 +40,25 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _stats = await StatisticsService.GetStatAsync();
+        Settings.SettingsChanged += Refresh;
+        await LoadStats();
+    }
+    private async Task LoadStats()
+    {
+        _stats =
+            await StatisticsService.GetStatAsync();
+    }
+
+    private async void Refresh()
+    {
+        await LoadStats();
+
+        await InvokeAsync(
+            StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        Settings.SettingsChanged -= Refresh;
     }
 }
