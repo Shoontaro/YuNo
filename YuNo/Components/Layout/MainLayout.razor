@@ -24,7 +24,14 @@
      </article> 
         <MudIconButton Icon="@ThemeIcon"
                        Color="Color.Inherit"
-                       OnClick="ToggleTheme" />
+                       OnClick="ToggleTheme"
+                       Style="
+        position: fixed;
+        bottom: 30px;
+        left: 24px;
+        right: auto;
+        z-index: 9999;
+        " />
 
         <MudFab StartIcon="@Icons.Material.Filled.Add"
                 Class="premium-fab"
@@ -32,7 +39,7 @@
                 OnClick="GoToAddEntry" 
                 Style="
         position: fixed;
-        bottom: 90px;
+        bottom: 30px;
         right: 24px;
         left: auto;
         z-index: 9999;
