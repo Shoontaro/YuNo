@@ -1,6 +1,9 @@
 ﻿@using MudBlazor
 @inherits LayoutComponentBase
 @inject NavigationManager Navigation
+@inject ThemeService ThemeService
+
+
 
 <div class="page">
     <div class="sidebar">
@@ -9,9 +12,19 @@
     <MudThemeProvider />
     <main>
 
+        <MudThemeProvider Theme="@CurrentTheme"
+                          IsDarkMode="@ThemeService.IsDarkMode" />
+
+        <MudDialogProvider />
+        <MudSnackbarProvider />
+
+
      <article class="content px-4">
        @Body
      </article> 
+        <MudIconButton Icon="@ThemeIcon"
+                       Color="Color.Inherit"
+                       OnClick="ToggleTheme" />
 
         <MudFab StartIcon="@Icons.Material.Filled.Add"
                 Class="premium-fab"
@@ -59,8 +72,40 @@
 
 
 @code {
+
+    
+    protected override void OnInitialized()
+    {
+        ThemeService.ThemeChanged += Refresh;
+    }
+
+    private string ThemeIcon =>
+      ThemeService.IsDarkMode
+          ? Icons.Material.Filled.LightMode
+          : Icons.Material.Filled.DarkMode;
+
+    private MudTheme CurrentTheme =>
+      ThemeService.IsDarkMode
+          ? AppTheme.DarkTheme
+          : AppTheme.LightTheme;
+
     private void GoToAddEntry()
     {
         Navigation.NavigateTo("/add");
+    }
+
+    private void ToggleTheme()
+    {
+        ThemeService.ToggleTheme();
+    }
+
+    private void Refresh()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        ThemeService.ThemeChanged -= Refresh;
     }
 }

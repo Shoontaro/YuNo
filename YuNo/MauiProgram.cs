@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using MudBlazor;
 using MudBlazor.Services;
+using YuNo;
 
 
 namespace YuNo
@@ -33,6 +34,7 @@ namespace YuNo
                 config.SnackbarConfiguration.PositionClass =
                     Defaults.Classes.Position.BottomCenter;
             });
+            builder.Services.AddSingleton<ThemeService>();
 
 
             var app = builder.Build();
