@@ -2,6 +2,7 @@
 @using MudBlazor
 
 @inject DiaryRepository Repository
+@inject ISnackbar Snackbar
 
 <h3>История</h3>
 
@@ -39,7 +40,17 @@
                     </MudText>
                 }
                 </div>
+
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete"
+                                   Color="Color.Error"
+                                   OnClick="() => Delete(entry.Id)" />
+
                 </MudStack>
+                <MudDivider Class="my-3" />
+
+                <MudText Class="entry-date">
+                    @entry.CreatedAt.ToString("dd MMM • HH:mm")
+                </MudText>
             </MudPaper>
         }
     }
@@ -51,6 +62,25 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _entries = await Repository.GetAllAsync();   
+        await LoadEntries();
+    }
+
+    private async Task LoadEntries()
+    {
+        _entries =
+            await Repository.GetAllAsync();
+    }
+
+    private async Task Delete(int id)
+    {
+        await Repository.DeleteAsync(id); 
+
+        Snackbar.Add(
+            "Запись удалена",
+            Severity.Success);
+
+        await LoadEntries();
+
+        StateHasChanged();
     }
 }

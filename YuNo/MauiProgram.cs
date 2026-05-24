@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using MudBlazor;
 using MudBlazor.Services;
 
 
@@ -27,6 +28,12 @@ namespace YuNo
             builder.Services.AddScoped<DiaryRepository>();
             builder.Services.AddScoped<StatisticsService>();
             builder.Services.AddMudServices();
+            builder.Services.AddMudServices(config =>
+            {
+                config.SnackbarConfiguration.PositionClass =
+                    Defaults.Classes.Position.BottomCenter;
+            });
+
 
             var app = builder.Build();
 

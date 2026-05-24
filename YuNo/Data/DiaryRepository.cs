@@ -28,6 +28,21 @@ namespace YuNo
             return await connection.ExecuteScalarAsync<int>(sql);
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            const string sql = """
+    DELETE FROM NoEntries
+    WHERE Id = @Id
+    """;
+
+            await using var connection =
+                _database.CreateConnection();
+
+            await connection.ExecuteAsync(
+                sql,
+                new { Id = id });
+        }
+
         //public async Task<int> GetTodayCountAsync()
         //{
         //    const string sql = """
